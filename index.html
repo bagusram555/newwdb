@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Acuz Store - Produk</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 1px 1px 5px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <h1>Daftar Produk Acuz Store</h1>
+  <div id="produk-container">Loading produk...</div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    fetch('produk.php')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('produk-container');
+        container.innerHTML = '';
+        data.forEach(produk => {
+          container.innerHTML += \`
+            <div class="card" data-aos="fade-up">
+              <h3>\${produk.nama}</h3>
+              <p>\${produk.deskripsi}</p>
+              <p><strong>Rp\${produk.harga_min.toLocaleString()} - Rp\${produk.harga_max.toLocaleString()}</strong></p>
+            </div>
+          \`;
+        });
+      });
+  </script>
+</body>
+</html>
